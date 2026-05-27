@@ -305,11 +305,11 @@ resource "aws_launch_template" "node" {
 # ── Managed Add-ons ────────────────────────────────────────────────────────────
 
 resource "aws_eks_addon" "vpc_cni" {
-  count                    = var.enable_vpc_cni ? 1 : 0
-  cluster_name             = aws_eks_cluster.this.name
-  addon_name               = "vpc-cni"
+  count                       = var.enable_vpc_cni ? 1 : 0
+  cluster_name                = aws_eks_cluster.this.name
+  addon_name                  = "vpc-cni"
   resolve_conflicts_on_update = "PRESERVE"
-  service_account_role_arn = aws_iam_role.vpc_cni[0].arn
+  service_account_role_arn    = aws_iam_role.vpc_cni[0].arn
 
   depends_on = [aws_eks_node_group.this]
 }
@@ -333,10 +333,10 @@ resource "aws_eks_addon" "kube_proxy" {
 }
 
 resource "aws_eks_addon" "ebs_csi" {
-  count                    = var.enable_ebs_csi_driver ? 1 : 0
-  cluster_name             = aws_eks_cluster.this.name
-  addon_name               = "aws-ebs-csi-driver"
-  service_account_role_arn = aws_iam_role.ebs_csi[0].arn
+  count                       = var.enable_ebs_csi_driver ? 1 : 0
+  cluster_name                = aws_eks_cluster.this.name
+  addon_name                  = "aws-ebs-csi-driver"
+  service_account_role_arn    = aws_iam_role.ebs_csi[0].arn
   resolve_conflicts_on_update = "PRESERVE"
 
   depends_on = [aws_eks_node_group.this]
